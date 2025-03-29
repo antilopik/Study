@@ -1,28 +1,69 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
+using System.Collections.Generic;
 using System.Transactions;
 using CheckList;
 
-var list = new List<CheckListItem>();
-
-Console.WriteLine("Add new task?");
-var arg = Console.ReadLine();
-while (arg == "yes")
+class Program
 {
-    Console.WriteLine("Enter name of task");
-    var tittle = Console.ReadLine();
-    var newCheckListItem = new CheckListItem(tittle);
-    list.Add(newCheckListItem);
-    Console.WriteLine("Add new task?");
-    arg = Console.ReadLine();
-}
+    private static List<CheckListItem> list = new List<CheckListItem>();
+    private const string COMMAND_LIST_ITEMS = "list";
+    private const string COMMAND_ADD_ITEM = "add";
 
-if (arg == "list")
-{
-    foreach (var checkListItem in list)
+    static void Main()
     {
-        Console.WriteLine(checkListItem.title);
+        Console.WriteLine("Add new task?");
+        var arg = Console.ReadLine();
+        if (arg == COMMAND_LIST_ITEMS)
+        {
+            ListAllItems();
+        }
+        else if (arg == COMMAND_ADD_ITEM)
+        {
+            AddItem();
+        }
+
+    }
+
+    private static void ListAllItems()
+    {
+        var index = 0;
+        foreach (var checkListItem in list)
+        {
+            Console.WriteLine($"´{index}) {checkListItem.title}, done: {checkListItem.isDone}");
+            index ++;
+        }
+    }
+
+    private static void AddItem() 
+    {
+        var newItemRequested = true;
+        while (newItemRequested)
+        {
+            Console.WriteLine("Enter name of task");
+            var arg = Console.ReadLine();
+            if (arg == COMMAND_LIST_ITEMS)
+            {
+                ListAllItems();
+            }
+            else
+            {
+                var tittle = arg;
+                var newCheckListItem = new CheckListItem(tittle);
+                list.Add(newCheckListItem);
+                Console.WriteLine("Add new task?");
+                arg = Console.ReadLine();
+                if (arg == COMMAND_LIST_ITEMS)
+                {
+                    newItemRequested = false;
+                    ListAllItems();
+                }
+                else if (arg != COMMAND_ADD_ITEM)
+                {
+                    newItemRequested = false;
+                }
+            }
+        }
     }
 }
-

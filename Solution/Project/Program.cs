@@ -4,6 +4,11 @@ class Calculator
 {
     static void Main()
     {
+        DoCalculation();
+    }
+
+    private static void DoCalculation()
+    {
         var firstNumber = GetNumberFromConsole("number");
         var secondNumber = GetNumberFromConsole("second number");
         var operation = GetOperationFromConsole(out var operatorasstring);
@@ -11,7 +16,7 @@ class Calculator
         switch (operation)
         {
             case ArifmeticOperator.Plus:
-              result = firstNumber + secondNumber;
+                result = firstNumber + secondNumber;
                 break;
             case ArifmeticOperator.Minus:
                 result = firstNumber - secondNumber;
@@ -23,7 +28,13 @@ class Calculator
                 result = firstNumber / secondNumber;
                 break;
         }
-        Console.WriteLine($"{firstNumber} {operatorasstring} {secondNumber} = {result}"); 
+        Console.WriteLine($"{firstNumber} {operatorasstring} {secondNumber} = {result}");
+        Console.WriteLine("second equation?");
+        var arg = Console.ReadLine();
+        if (arg == "yes")
+        {
+            DoCalculation();
+        }
     }
 
     private static int GetNumberFromConsole(string whatToAskFromUser)

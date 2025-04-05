@@ -1,4 +1,5 @@
-﻿using Animals.Models;
+﻿using System.Collections.Generic;
+using Animals.Models;
 
 var from = new List<BioEntity> { new Cabbage(), new Sheep(), new Wolf() };
 var to = new List<BioEntity>(3);
@@ -28,17 +29,30 @@ for (int i = 0; i < from.Count; i++)
     }
 }
 
-
-if (from.Count == 2)
+if (CheckLooseCondition(to) == GameState.Lost || CheckLooseCondition(from) == GameState.Lost)
 {
-    if (from[0].CanEat(from[1]))
-    { 
-        Console.WriteLine($"{from[0]} has eaten {from[1]}");
-    }
-    else if (from[1].CanEat(from[0]))
+    Console.WriteLine("You lost");
+    return;
+}
+
+static GameState CheckLooseCondition(List<BioEntity> list)
+{
+
+    if (list.Count == 2)
     {
-        Console.WriteLine($"{from[1]} has eaten {from[0]}");
+        if (list[0].CanEat(list[1]))
+        {
+            Console.WriteLine($"{list[0]} has eaten {list[1]}");
+            return GameState.Lost;
+        }
+        else if (list[1].CanEat(list[0]))
+        {
+            Console.WriteLine($"{list[1]} has eaten {list[0]}");
+            return GameState.Lost;
+        }
     }
+
+    return GameState.Continue;
 }
 
 

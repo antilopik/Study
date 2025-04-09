@@ -23,7 +23,7 @@ while (from.Count > 0)
     tripFrom = tripTo;
     tripTo = bubber;
     Type currentCargoType = GetEnityTypeToCarryOrNothing(cargosDictionary, tripNumber.ToString(), tripFrom);
-    if (currentCargoType == typeof(Nothing))
+    if (currentCargoType != typeof(Nothing))
     {
         MakeTransportation(tripFrom, tripTo, currentCargoType);
     }
@@ -55,18 +55,21 @@ static void MakeTransportation(List<BioEntity> from, List<BioEntity> to, Type ty
 
 static GameState CheckLooseCondition(List<BioEntity> list)
 {
-
-    if (list.Count == 2)
+    for (int i = 0; i < list.Count; i++)
     {
-        if (list[0].CanEat(list[1]))
+        BioEntity current = list[i];
+        for (int j = i + 1; j < list.Count; j++)
         {
-            Console.WriteLine($"{list[0]} has eaten {list[1]}");
-            return GameState.Lost;
-        }
-        else if (list[1].CanEat(list[0]))
-        {
-            Console.WriteLine($"{list[1]} has eaten {list[0]}");
-            return GameState.Lost;
+            if (current.CanEat(list[j]))
+            {
+                Console.WriteLine($"{current} has eaten {list[j]}");
+                return GameState.Lost;
+            }
+            else if (list[j].CanEat(current))
+            {
+                Console.WriteLine($"{list[j]} has eaten {current}");
+                return GameState.Lost;
+            }
         }
     }
 

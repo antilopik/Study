@@ -8,12 +8,27 @@ var cargosDictionary = new Dictionary<string, Type>
 {
     { "cabbage", typeof(Cabbage) },
     { "sheep", typeof(Sheep) },
-    { "wolf", typeof(Wolf) }
+    { "wolf", typeof(Wolf) },
+    { "none", typeof(Nothing) }
 };
 
-Type currentCargoType = GetFirstEnityTypeToCarry(cargosDictionary);
-MakeTransportation(from, to, currentCargoType);
-CheckLooseConditions(to, from);
+
+var tripNumber = 0;
+var tripFrom = to;
+var tripTo = from;
+while (from.Count > 0)
+{
+    tripNumber++;
+    var bubber = tripFrom;
+    tripFrom = tripTo;
+    tripTo = bubber;
+    Type currentCargoType = GetEnityTypeToCarryOrNothing(cargosDictionary, tripNumber.ToString(), tripFrom);
+    if (currentCargoType == typeof(Nothing))
+    {
+        MakeTransportation(tripFrom, tripTo, currentCargoType);
+    }
+    CheckLooseConditions(tripTo, tripFrom);
+}
 
 static void CheckLooseConditions(List<BioEntity> to, List<BioEntity> from)
 {
@@ -70,15 +85,19 @@ static bool TryParseCargo(string cargo, Dictionary<string, Type> cargosDictionar
     return typeOfCargo != null;
 }
 
-static Type GetFirstEnityTypeToCarry(Dictionary<string, Type> cargosDictionary)
+static Type GetEnityTypeToCarryOrNothing(Dictionary<string, Type> cargosDictionary, string cargoIndex, List<BioEntity> currentShore)
 {
     Type currentCargoType = null;
     while (currentCargoType == null)
     {
-        Console.WriteLine("Enter first cargo");
+        Console.WriteLine($"Enter {cargoIndex} cargo");
         var firstCargo = Console.ReadLine();
         TryParseCargo(firstCargo, cargosDictionary, out currentCargoType);
+        if (currentCargoType != typeof(Nothing) && currentShore.All(x => x.GetType() != currentCargoType))
+        {
+            Console.WriteLine($"Cargo with type {currentCargoType} does not exists on the current shore");
+            currentCargoType = null;
+        }
     }
-
     return currentCargoType;
 }

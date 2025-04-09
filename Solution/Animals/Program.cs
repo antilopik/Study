@@ -16,7 +16,8 @@ var cargosDictionary = new Dictionary<string, Type>
 var tripNumber = 0;
 var tripFrom = to;
 var tripTo = from;
-while (from.Count > 0)
+bool isGameLost = false;
+while (from.Count > 0 && !isGameLost)
 {
     tripNumber++;
     var bubber = tripFrom;
@@ -27,16 +28,17 @@ while (from.Count > 0)
     {
         MakeTransportation(tripFrom, tripTo, currentCargoType);
     }
-    CheckLooseConditions(tripTo, tripFrom);
+    isGameLost = CheckLooseConditions(tripTo, tripFrom);
 }
 
-static void CheckLooseConditions(List<BioEntity> to, List<BioEntity> from)
+static bool CheckLooseConditions(List<BioEntity> to, List<BioEntity> from)
 {
     if (CheckLooseCondition(to) == GameState.Lost || CheckLooseCondition(from) == GameState.Lost)
     {
         Console.WriteLine("You lost");
-        return;
+        return true;
     }
+    return false;
 }
 
 

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Animals.Models;
+﻿using Animals.Models;
 // declare variables to store entities for both sides of the river
 var from = new List<BioEntity> { new Cabbage(), new Sheep(), new Wolf() };
 var to = new List<BioEntity>(3);
+var currentBoatmanLocation = BoatManLocation.LeftSide;
+
 // declare a mapping for user input to entity types
 var cargosDictionary = new Dictionary<string, Type>
 {
@@ -14,45 +15,90 @@ var cargosDictionary = new Dictionary<string, Type>
 
 
 var tripNumber = 0;
-var tripFrom = to;
-var tripTo = from;
 bool isGameLost = false;
 while (from.Count > 0 && !isGameLost)
 {
     tripNumber++;
-    var bubber = tripFrom;
-    tripFrom = tripTo;
-    tripTo = bubber;
-    Type currentCargoType = GetEnityTypeToCarryOrNothing(cargosDictionary, tripNumber.ToString(), tripFrom);
-    if (currentCargoType != typeof(Nothing))
+    if (currentBoatmanLocation == BoatManLocation.LeftSide)
     {
-        MakeTransportation(tripFrom, tripTo, currentCargoType);
+        Type currentCargoType = GetEnityTypeToCarryOrNothing(cargosDictionary, tripNumber.ToString(), from);
+        currentBoatmanLocation = MakeTransportation(from, to, currentCargoType, currentBoatmanLocation);
     }
-    isGameLost = CheckLooseConditions(tripTo, tripFrom);
+    else
+    {
+        Type currentCargoType = GetEnityTypeToCarryOrNothing(cargosDictionary, tripNumber.ToString(), to);
+        currentBoatmanLocation = MakeTransportation(to, from, currentCargoType, currentBoatmanLocation);
+    }
+
+    isGameLost = CheckLooseConditions(to, from, currentBoatmanLocation);
 }
 
-static bool CheckLooseConditions(List<BioEntity> to, List<BioEntity> from)
+if (!isGameLost)
 {
-    if (CheckLooseCondition(to) == GameState.Lost || CheckLooseCondition(from) == GameState.Lost)
+    Console.WriteLine("You won!");
+}
+
+static bool CheckLooseConditions(List<BioEntity> to, List<BioEntity> from, BoatManLocation boatManLocation)
+{
+    var result = false;
+    switch (boatManLocation)
+    {
+        case BoatManLocation.LeftSide:
+            if (CheckLooseCondition(to) == GameState.Lost)
+            {
+                result = true;
+            }
+            break;
+        case BoatManLocation.RightSide:
+            if (CheckLooseCondition(from) == GameState.Lost)
+            {
+                result = true;
+            }
+            break;
+    }
+
+    if (result)
     {
         Console.WriteLine("You lost");
-        return true;
     }
-    return false;
+    return result;
 }
 
 
-static void MakeTransportation(List<BioEntity> from, List<BioEntity> to, Type typeToCarry)
+static BoatManLocation MakeTransportation(List<BioEntity> from, List<BioEntity> to, Type typeToCarry, BoatManLocation current)
 {
-    for (int i = 0; i < from.Count; i++)
+    if (typeToCarry == typeof(Nothing))
     {
-        if (from[i].GetType() == typeToCarry)
-        {
-            var cargo = from[i];
-            from.Remove(cargo);
-            to.Add(cargo);
-        }
+        return UpdateBoatManLocation(current);
     }
+    else 
+    {
+        for (int i = 0; i < from.Count; i++)
+        {
+            if (from[i].GetType() == typeToCarry)
+            {
+                var cargo = from[i];
+                from.Remove(cargo);
+                to.Add(cargo);
+                return UpdateBoatManLocation(current);
+            }
+        }
+        return current;
+    }
+}
+
+static BoatManLocation UpdateBoatManLocation(BoatManLocation currentBoatmanLocation)
+{
+    if (currentBoatmanLocation == BoatManLocation.LeftSide)
+    {
+        currentBoatmanLocation = BoatManLocation.RightSide;
+    }
+    else
+    {
+        currentBoatmanLocation = BoatManLocation.LeftSide;
+    }
+    Console.WriteLine($"Boatman is on the {currentBoatmanLocation}");
+    return currentBoatmanLocation;
 }
 
 static GameState CheckLooseCondition(List<BioEntity> list)

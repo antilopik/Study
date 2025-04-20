@@ -2,14 +2,18 @@
 {
     internal class Circle : IFigure
     {
+        private double a;
         public void CalculateArea()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(a * a * Math.PI);
+            Console.ReadKey();
         }
 
         public void GetParamaetersOfFigureFromUser()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Please enter the radius!");
+            string x = Console.ReadLine();
+            this.a = Convert.ToDouble(x);
         }
     }
 }

@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SurfaceAreaCalculator.Figures
 {
     internal class Triangle : IFigure
     {
+        private int a;
+        private int b;
         public void CalculateArea()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(a * b / 2);
         }
 
         public void GetParamaetersOfFigureFromUser()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Please enter height!");
+            string x = Console.ReadLine();
+            Console.WriteLine("Please enter base!");
+            string y = Console.ReadLine();
+            a = Convert.ToInt32(x);
+            b = Convert.ToInt32(y);
         }
     }
 }

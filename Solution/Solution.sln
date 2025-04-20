@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animals", "Animals\Animals.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challange", "Challange\Challange.csproj", "{AC8ED76B-1189-4186-8E80-DF955478DD23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurfaceAreaCalculator", "SurfaceAreaCalculator\SurfaceAreaCalculator.csproj", "{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AC8ED76B-1189-4186-8E80-DF955478DD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC8ED76B-1189-4186-8E80-DF955478DD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC8ED76B-1189-4186-8E80-DF955478DD23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

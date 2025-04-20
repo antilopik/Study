@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challange", "Challange\Chal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurfaceAreaCalculator", "SurfaceAreaCalculator\SurfaceAreaCalculator.csproj", "{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesInteraction", "FilesInteraction\FilesInteraction.csproj", "{CEA35D8E-785B-421B-9E7D-723704B788A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DF36156-61A0-4E03-9ED8-4E6F22CC66D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA35D8E-785B-421B-9E7D-723704B788A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA35D8E-785B-421B-9E7D-723704B788A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA35D8E-785B-421B-9E7D-723704B788A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA35D8E-785B-421B-9E7D-723704B788A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Windows.Input;
 using FirstGuiApp.Commands;
 
@@ -39,9 +40,18 @@ namespace FirstGuiApp.ViewModels
 
         private void OnButtonClick(object param)
         {
-            Address = "Valitie";
-            Period = "adadaf fsa";
-            Amount = Amount + 1;
+            const string fileName = "payment.txt";
+            if (!File.Exists(fileName))
+            {
+                var stream = File.Create(fileName);
+                stream.Dispose();
+            }
+
+
+            var input = $"Адресс: {Address}, период: {Period}, сумма: {Amount}";
+            {
+                File.AppendAllLines(fileName, new string[] { input });
+            }
         }
     }
 }

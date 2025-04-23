@@ -4,27 +4,31 @@ using FirstGuiApp.Commands;
 
 namespace FirstGuiApp.ViewModels
 {
-    public class PaymentsRegistrationViewModel : INotifyPropertyChanged
+    public class PaymentsRegistrationViewModel : ViewModelBase
     {
         private string _address;
 
         public string Address
         {
             get => _address;
-            set 
-            {
-                if (!string.Equals(value, _address))
-                { 
-                    _address = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Address)));
-                }
-            }
+            set => SetProp(value, ref _address);
         }
 
-        public string Period { get; set; }
-        public decimal Amount { get; set; }
+        private string _period;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public string Period
+        { 
+            get => _period;
+            set => SetProp(value, ref _period);
+        }
+
+        private decimal _amount;
+        public decimal Amount 
+        {
+            get => _amount;
+            set => SetProp(value, ref _amount);
+        }
+
 
         public PaymentsRegistrationViewModel()
         {
@@ -36,6 +40,8 @@ namespace FirstGuiApp.ViewModels
         private void OnButtonClick(object param)
         {
             Address = "Valitie";
+            Period = "adadaf fsa";
+            Amount = Amount + 1;
         }
     }
 }

@@ -17,9 +17,15 @@
             Height="30" 
             Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Label Content="Period:" FontSize="12" HorizontalAlignment="Center" Margin="2"/>
-        <TextBox Width="200" Height="30"></TextBox>
+        <TextBox 
+            Width="200" 
+            Height="30"
+            Text="{Binding Period, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Label Content="Amount:" FontSize="12" HorizontalAlignment="Center" Margin="2"/>
-        <TextBox Width="200" Height="30"></TextBox>
+        <TextBox 
+            Width="200" 
+            Height="30"
+            Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Button 
             Width="200" 
             Height="30" 

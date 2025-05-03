@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace FirstGuiApp.ViewModels
+namespace Model.View.ViewModel.Base
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

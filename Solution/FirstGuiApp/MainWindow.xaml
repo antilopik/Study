@@ -13,6 +13,7 @@
     <StackPanel>
         <Label Content="Address:" FontSize="12" HorizontalAlignment="Center" Margin="2"/>
         <TextBox 
+            x:Name="myTextBox"
             Width="200"
             Height="30" 
             Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>

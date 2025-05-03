@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Input;
 using FirstGuiApp.Commands;
+using Model.View.ViewModel.Base;
 
 namespace FirstGuiApp.ViewModels
 {
@@ -29,7 +29,6 @@ namespace FirstGuiApp.ViewModels
             get => _amount;
             set => SetProp(value, ref _amount);
         }
-
 
         public PaymentsRegistrationViewModel()
         {

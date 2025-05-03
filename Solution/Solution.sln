@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesInteraction", "FilesIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstGuiApp", "FirstGuiApp\FirstGuiApp.csproj", "{C95D1AA6-CDB7-4941-84A6-41FC9B6CECFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork", "HomeWork\HomeWork.csproj", "{72820091-E51A-43DF-8891-248D1C1E5ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.View.ViewModel.Base", "Model.View.ViewModel.Base\Model.View.ViewModel.Base.csproj", "{2D97DE4C-7752-4D6F-B63F-04276040F168}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{C95D1AA6-CDB7-4941-84A6-41FC9B6CECFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C95D1AA6-CDB7-4941-84A6-41FC9B6CECFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C95D1AA6-CDB7-4941-84A6-41FC9B6CECFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72820091-E51A-43DF-8891-248D1C1E5ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72820091-E51A-43DF-8891-248D1C1E5ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72820091-E51A-43DF-8891-248D1C1E5ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72820091-E51A-43DF-8891-248D1C1E5ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D97DE4C-7752-4D6F-B63F-04276040F168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D97DE4C-7752-4D6F-B63F-04276040F168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D97DE4C-7752-4D6F-B63F-04276040F168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D97DE4C-7752-4D6F-B63F-04276040F168}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

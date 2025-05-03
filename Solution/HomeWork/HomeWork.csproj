@@ -9,7 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\cabbage.jfif" />
+    <None Remove="Images\sheep.jfif" />
+    <None Remove="Images\wolf.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Model.View.ViewModel.Base\Model.View.ViewModel.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\cabbage.jfif" />
+    <Resource Include="Images\sheep.jfif" />
+    <Resource Include="Images\wolf.jfif" />
   </ItemGroup>
 
 </Project>

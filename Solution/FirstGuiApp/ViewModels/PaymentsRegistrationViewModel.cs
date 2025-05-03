@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Input;
-using FirstGuiApp.Commands;
 using Model.View.ViewModel.Base;
+using Model.View.ViewModel.Base.Commands;
 
 namespace FirstGuiApp.ViewModels
 {

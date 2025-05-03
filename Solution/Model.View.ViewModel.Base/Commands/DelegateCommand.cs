@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 
-namespace FirstGuiApp.Commands
+namespace Model.View.ViewModel.Base.Commands
 {
-    internal class DelegateCommand : ICommand
+    public sealed class DelegateCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
         private readonly Action<object?> _function;

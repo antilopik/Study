@@ -7,7 +7,7 @@
             return candidate is Sheep;
         }
 
-        public string ImageSourceFile { get; } = "wolf.jfif";
+        public override string ImageSourceFile { get; } = "wolf.jfif";
 
         public override string ToString()
         {

@@ -7,6 +7,8 @@
         xmlns:viewmodel="clr-namespace:HomeWork.ViewModels"
         xmlns:converters="clr-namespace:HomeWork.Converters"
         xmlns:controls="clr-namespace:HomeWork.Controls"
+        xmlns:behaviors="clr-namespace:HomeWork.Behaviors"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -27,6 +29,11 @@
                     <controls:ImagePresenter />
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <i:Interaction.Behaviors>
+                <behaviors:AllowSelectionDirectionBehavior 
+                    AllowedDirection="LeftToRight" 
+                    CurrentDirection="{Binding RouteDirection, Mode=OneWay}" />
+            </i:Interaction.Behaviors>
         </ListView>
         <Button 
             Width="80"
@@ -42,6 +49,11 @@
                     <controls:ImagePresenter />
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <i:Interaction.Behaviors>
+                <behaviors:AllowSelectionDirectionBehavior 
+                    AllowedDirection="RightToLeft" 
+                    CurrentDirection="{Binding RouteDirection, Mode=OneWay}" />
+            </i:Interaction.Behaviors>
         </ListView>
     </StackPanel>
 </Window>

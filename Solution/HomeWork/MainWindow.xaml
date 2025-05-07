@@ -14,6 +14,12 @@
     <Window.Resources>
         <ResourceDictionary>
             <converters:RouteRirectinoConverter x:Key="routeRirectinoConverter" />
+            <converters:IsStringEmptyOrNullConverter x:Key="isStringEmptyOrNullConverter" />
+            <SolidColorBrush Color="Bisque" x:Key="backgroundColor" />
+            <Style TargetType="Control" x:Key="defaultStyle">
+                <Setter Property="Background" Value="{StaticResource backgroundColor}" />
+                <Setter Property="Margin" Value="2.5, 2, 2.5, 2" />
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
     <Window.DataContext>
@@ -21,7 +27,10 @@
     </Window.DataContext>
     <StackPanel Orientation="Horizontal">
         <ListView
+            Style="{StaticResource defaultStyle}"
+            MinWidth="100"
             SelectionMode="Single"
+            IsEnabled="{Binding PlayerName, Mode=OneWay, Converter={StaticResource isStringEmptyOrNullConverter}}"
             ItemsSource="{Binding LeftSide, Mode=OneTime}"
             SelectedItem="{Binding SelectedPassanger, Mode=OneWayToSource}">
             <ListView.ItemTemplate>
@@ -38,10 +47,14 @@
         <Button 
             Width="80"
             Height="18"
+            IsEnabled="{Binding PlayerName, Mode=OneWay, Converter={StaticResource isStringEmptyOrNullConverter}}"
             Command="{Binding MoveToOtherSide}" 
-            Content="{Binding RouteDirection, Mode=OneWay, Converter={StaticResource routeRirectinoConverter}}" /> 
+            Content="{Binding RouteDirection, Mode=OneWay, Converter={StaticResource routeRirectinoConverter}}" />
         <ListView
+            Style="{StaticResource defaultStyle}"
             SelectionMode="Single"
+            MinWidth="100"
+            IsEnabled="{Binding PlayerName, Mode=OneWay, Converter={StaticResource isStringEmptyOrNullConverter}}"
             ItemsSource="{Binding RightSide, Mode=OneTime}"
             SelectedItem="{Binding SelectedPassanger, Mode=OneWayToSource}">
             <ListView.ItemTemplate>
@@ -55,5 +68,13 @@
                     CurrentDirection="{Binding RouteDirection, Mode=OneWay}" />
             </i:Interaction.Behaviors>
         </ListView>
+        <Label 
+            Content="Currently playing:" 
+            Height="28" />
+        <TextBox 
+            Style="{StaticResource defaultStyle}"
+            Text="{Binding PlayerName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
+            Width="150" 
+            Height="20" />
     </StackPanel>
 </Window>

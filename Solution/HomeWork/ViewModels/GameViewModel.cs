@@ -16,6 +16,9 @@ namespace HomeWork.ViewModels
         };
 
 
+        private string _playerName;
+        public string PlayerName { get => _playerName; set => SetProp(value, ref _playerName); }
+
         public ObservableCollection<BioEntity> LeftSide { get; } = new ObservableCollection<BioEntity>(animals);
 
         public ObservableCollection<BioEntity> RightSide { get; } = new ObservableCollection<BioEntity>();
@@ -84,6 +87,7 @@ namespace HomeWork.ViewModels
 
         private void ProcessLoose()
         {
+            var date = DateTime.Now;
             if (MessageBox.Show("Do you want to restart?", "You lost!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 RestartGame();

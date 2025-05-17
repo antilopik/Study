@@ -68,13 +68,19 @@
                     CurrentDirection="{Binding RouteDirection, Mode=OneWay}" />
             </i:Interaction.Behaviors>
         </ListView>
-        <Label 
+        <StackPanel Orientation="Vertical">
+            <Label 
             Content="Currently playing:" 
             Height="28" />
-        <TextBox 
+            <TextBox 
             Style="{StaticResource defaultStyle}"
             Text="{Binding PlayerName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
             Width="150" 
             Height="20" />
+
+            <DataGrid ItemsSource="{Binding GameResults}" IsReadOnly="True">
+            </DataGrid>
+
+        </StackPanel>
     </StackPanel>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using HomeWork.Models;
 using Model.View.ViewModel.Base;
@@ -15,16 +16,19 @@ namespace HomeWork.ViewModels
             { new Sheep() }
         };
 
-
+ 
         private string _playerName;
         public string PlayerName { get => _playerName; set => SetProp(value, ref _playerName); }
 
         public ObservableCollection<BioEntity> LeftSide { get; } = new ObservableCollection<BioEntity>(animals);
 
         public ObservableCollection<BioEntity> RightSide { get; } = new ObservableCollection<BioEntity>();
+        public ObservableCollection<GameResult> GameResults { get; }
 
         private Direction _routeDirection;
         public Direction RouteDirection { get => _routeDirection; set => SetProp(value, ref _routeDirection); }
+
+        private const string GAME_HISTORY_FILE = "gamehistory.txt";
 
         private BioEntity? _selectedPassanger;
 
@@ -35,6 +39,19 @@ namespace HomeWork.ViewModels
         public GameViewModel()
         {
             MoveToOtherSide = new DelegateCommand(Move);
+            if (!File.Exists(GAME_HISTORY_FILE))
+            {
+                var stream = File.Create(GAME_HISTORY_FILE);
+                stream.Dispose();
+                GameResults = new ObservableCollection<GameResult>();
+            }
+            else 
+            {
+                var lines = File.ReadAllLines(GAME_HISTORY_FILE);
+                GameResults = new ObservableCollection<GameResult>(
+                    lines.Select(GameResult.Parse)
+                    );
+            }
         }
 
         private void Move(object? parameter)
@@ -49,6 +66,7 @@ namespace HomeWork.ViewModels
                 // тут пока еше RouteDirection это текущее положение лодочника
                 if (RightSide.Count == 3)
                 {
+                    SaveGameResult(false);
                     if (MessageBox.Show("Do you want to restart?", "You won!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         RestartGame();
@@ -87,7 +105,7 @@ namespace HomeWork.ViewModels
 
         private void ProcessLoose()
         {
-            var date = DateTime.Now;
+            SaveGameResult(true);
             if (MessageBox.Show("Do you want to restart?", "You lost!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 RestartGame();
@@ -128,6 +146,19 @@ namespace HomeWork.ViewModels
             RightSide.Clear();
             LeftSide.Clear();
             animals.ForEach(x => LeftSide.Add(x));
+        }
+
+        private void SaveGameResult(bool isGameLost)
+        {
+            var currentDateTime = DateTime.Now;
+            var result = new GameResult()
+            {
+                IsGameLost = isGameLost,
+                Player = PlayerName,
+                Date = currentDateTime
+            };
+            GameResults.Add(result);
+            File.AppendAllLines(GAME_HISTORY_FILE, [result.ToString()]);
         }
     }
 }

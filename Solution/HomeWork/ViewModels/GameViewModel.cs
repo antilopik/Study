@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using HomeWork.Models;
+using HomeWork.Services;
 using Model.View.ViewModel.Base;
 using Model.View.ViewModel.Base.Commands;
 
@@ -16,7 +17,8 @@ namespace HomeWork.ViewModels
             { new Sheep() }
         };
 
- 
+        private readonly IDialogService _dialog;
+
         private string _playerName;
         public string PlayerName { get => _playerName; set => SetProp(value, ref _playerName); }
 
@@ -36,8 +38,15 @@ namespace HomeWork.ViewModels
 
         public DelegateCommand MoveToOtherSide { get; }
 
-        public GameViewModel()
+        public GameViewModel() : this(new DialogService())
         {
+        }
+
+        public static GameViewModel CreateForTests(IDialogService dialog) => new GameViewModel(dialog);
+
+        private GameViewModel(IDialogService dialog)
+        {
+            _dialog = dialog;
             MoveToOtherSide = new DelegateCommand(Move);
             if (!File.Exists(GAME_HISTORY_FILE))
             {
@@ -45,7 +54,7 @@ namespace HomeWork.ViewModels
                 stream.Dispose();
                 GameResults = new ObservableCollection<GameResult>();
             }
-            else 
+            else
             {
                 var lines = File.ReadAllLines(GAME_HISTORY_FILE);
                 GameResults = new ObservableCollection<GameResult>(
@@ -67,7 +76,7 @@ namespace HomeWork.ViewModels
                 if (RightSide.Count == 3)
                 {
                     SaveGameResult(false);
-                    if (MessageBox.Show("Do you want to restart?", "You won!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (_dialog.ShowYesNoDialog(title: "You won!", question: "Do you want to restart?"))
                     {
                         RestartGame();
                     }
@@ -106,7 +115,7 @@ namespace HomeWork.ViewModels
         private void ProcessLoose()
         {
             SaveGameResult(true);
-            if (MessageBox.Show("Do you want to restart?", "You lost!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (_dialog.ShowYesNoDialog(title: "You wonlost", question: "Do you want to restart?"))
             {
                 RestartGame();
             }
@@ -116,7 +125,7 @@ namespace HomeWork.ViewModels
             }
         }
 
-        static bool IsGameLost(ObservableCollection<BioEntity> currentSide)
+        internal static bool IsGameLost(ObservableCollection<BioEntity> currentSide)
         {
             for (int i = 0; i < currentSide.Count; i++)
             {

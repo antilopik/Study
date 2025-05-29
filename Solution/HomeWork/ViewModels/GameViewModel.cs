@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 using HomeWork.Models;
 using HomeWork.Services;
@@ -18,6 +17,7 @@ namespace HomeWork.ViewModels
         };
 
         private readonly IDialogService _dialog;
+        private readonly IFileService _fileService;
 
         private string _playerName;
         public string PlayerName { get => _playerName; set => SetProp(value, ref _playerName); }
@@ -38,28 +38,25 @@ namespace HomeWork.ViewModels
 
         public DelegateCommand MoveToOtherSide { get; }
 
-        public GameViewModel() : this(new DialogService())
+        public GameViewModel() : this(new DialogService(), new FileService())
         {
         }
 
-        public static GameViewModel CreateForTests(IDialogService dialog) => new GameViewModel(dialog);
+        public static GameViewModel CreateForTests(IDialogService dialog, IFileService fileService) => new GameViewModel(dialog, fileService);
 
-        private GameViewModel(IDialogService dialog)
+        private GameViewModel(IDialogService dialog, IFileService fileService)
         {
             _dialog = dialog;
+            _fileService = fileService;
             MoveToOtherSide = new DelegateCommand(Move);
-            if (!File.Exists(GAME_HISTORY_FILE))
+            GameResults = new ObservableCollection<GameResult>();
+            if (_fileService.InsureFileExists(GAME_HISTORY_FILE))
             {
-                var stream = File.Create(GAME_HISTORY_FILE);
-                stream.Dispose();
-                GameResults = new ObservableCollection<GameResult>();
-            }
-            else
-            {
-                var lines = File.ReadAllLines(GAME_HISTORY_FILE);
-                GameResults = new ObservableCollection<GameResult>(
-                    lines.Select(GameResult.Parse)
-                    );
+                var lines = _fileService.ReadAllLines(GAME_HISTORY_FILE);
+                foreach (var result in  lines.Select(GameResult.Parse))
+                {
+                    GameResults.Add(result);
+                }
             }
         }
 
@@ -167,7 +164,8 @@ namespace HomeWork.ViewModels
                 Date = currentDateTime
             };
             GameResults.Add(result);
-            File.AppendAllLines(GAME_HISTORY_FILE, [result.ToString()]);
+            
+            _fileService.WriteLine(filePath: GAME_HISTORY_FILE, result: result);
         }
     }
 }
